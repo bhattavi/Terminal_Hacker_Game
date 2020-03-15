@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class Hacker : MonoBehaviour
    
 {
     int level;
+    string password;
     enum Screen {MainMenu, Password, Win};
 
     Screen currentScene = Screen.MainMenu;
@@ -41,10 +43,16 @@ public class Hacker : MonoBehaviour
         {
             RunMainMenu(input);
         }
+        else if (currentScene == Screen.Password)
+        {
+            RunPassword(input);
+        }
 
     }
 
-     void RunMainMenu(string input)
+    
+
+    void RunMainMenu(string input)
     {
         if (input.Equals("clear"))
         {
@@ -53,11 +61,13 @@ public class Hacker : MonoBehaviour
         else if (input.Equals("1"))
         {
             level = 1;
+            password = "donkey";
             StartGame();
         }
         else if (input.Equals("2"))
         {
             level = 2;
+            password = "monkey";
             StartGame();
         }
         else if (input.Equals("3"))
@@ -78,8 +88,20 @@ public class Hacker : MonoBehaviour
         Terminal.WriteLine("Please enter your password: ");
         currentScene = Screen.Password;
     }
+    void RunPassword(string input)
+    {
+        if (input == password)
+        {
+            Terminal.WriteLine("Well done");
+        }
+        else
+        {
+            Terminal.WriteLine("Sorry, wrong password!");
+            
+        }
+    }
 
-   
 
-    
+
+
 }
