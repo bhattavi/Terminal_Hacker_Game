@@ -6,8 +6,11 @@ using UnityEngine;
 public class Hacker : MonoBehaviour
    
 {
+    string[] level1Passwords = { "books", "aisle", "self", "password", "font", "borrow" };
+    string[] level2Passwords = { "prisoner", "handcuffs", "holster", "uniform", "arrest" };
     int level;
     string password;
+    int random;
     enum Screen {MainMenu, Password, Win};
 
     Screen currentScene = Screen.MainMenu;
@@ -61,13 +64,17 @@ public class Hacker : MonoBehaviour
         else if (input.Equals("1"))
         {
             level = 1;
-            password = "donkey";
+            random = UnityEngine.Random.Range(0, 6);
+            Debug.Log(random);
+            password = level1Passwords[random];
             StartGame();
         }
         else if (input.Equals("2"))
         {
             level = 2;
-            password = "monkey";
+            UnityEngine.Random.Range(0, 5);
+            Debug.Log(random);
+            password = level2Passwords[random];
             StartGame();
         }
         else if (input.Equals("3"))
