@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +6,7 @@ using UnityEngine;
 public class Hacker : MonoBehaviour
    
 {
+    const string menuHint = "Enter menu at any time.";
     string[] level1Passwords = { "books", "aisle", "shelf", "password", "font", "borrow" };
     string[] level2Passwords = { "prisoner", "handcuffs", "holster", "uniform", "arrest" };
     string[] level3Passwords = { "aviation", "gravity", "supersonic", "thrust", "combustor" };
@@ -30,17 +31,23 @@ public class Hacker : MonoBehaviour
         Terminal.WriteLine("Press 2 for the police station");
         Terminal.WriteLine("Press 3 for NASA\n");
         Terminal.WriteLine("Enter your selection:");
-        
+       
+
     }
 
     void OnUserInput(string input)
     {
         input = input.ToLower();
 
-        if (input.Equals("main"))
+        if (input.Equals("menu"))
         {
      
             ShowMainMenu();
+        }
+        else if (input == "quit" || input == "close" || input == "exit")
+        {
+            Terminal.WriteLine("If on the web close the tab.");
+            Application.Quit();
         }
         else if(currentScene == Screen.MainMenu)
         {
@@ -74,6 +81,7 @@ public class Hacker : MonoBehaviour
         else
         {
             Terminal.WriteLine("Enter a valid input");
+            Terminal.WriteLine(menuHint);
         }
     }
 
@@ -83,6 +91,7 @@ public class Hacker : MonoBehaviour
         currentScene = Screen.Password;
         SetRandomPassword();
         Terminal.WriteLine("Enter your password, hint: " + password.Anagram());
+        Terminal.WriteLine(menuHint);
     }
 
   void SetRandomPassword()
@@ -127,6 +136,7 @@ public class Hacker : MonoBehaviour
         currentScene = Screen.Win;
         Terminal.ClearScreen();
         ShowLevelReward();
+        Terminal.WriteLine(menuHint);
     }
     void ShowLevelReward()
     {
