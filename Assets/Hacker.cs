@@ -8,9 +8,9 @@ public class Hacker : MonoBehaviour
 {
     string[] level1Passwords = { "books", "aisle", "self", "password", "font", "borrow" };
     string[] level2Passwords = { "prisoner", "handcuffs", "holster", "uniform", "arrest" };
+    string[] level3Passwords = { "aviation", "gravity", "supersonic", "thrust", "combustor" };
     int level;
     string password;
-    int random;
     enum Screen {MainMenu, Password, Win};
 
     Screen currentScene = Screen.MainMenu;
@@ -57,30 +57,19 @@ public class Hacker : MonoBehaviour
 
     void RunMainMenu(string input)
     {
+        bool isValidInput = (input == "1" || input == "2" || input == "3");
         if (input.Equals("clear"))
         {
             Terminal.ClearScreen();
         }
-        else if (input.Equals("1"))
+        else if (isValidInput)
         {
-            level = 1;
-            random = UnityEngine.Random.Range(0, 6);
-            Debug.Log(random);
-            password = level1Passwords[random];
-            StartGame();
+            level = int.Parse(input);
+            StartGame(level);
         }
-        else if (input.Equals("2"))
+        else if(input == "007")
         {
-            level = 2;
-            UnityEngine.Random.Range(0, 5);
-            Debug.Log(random);
-            password = level2Passwords[random];
-            StartGame();
-        }
-        else if (input.Equals("3"))
-        {
-            level = 3;
-            StartGame();
+            Terminal.WriteLine("Please enter a valid input Mr Bond!");
         }
         else
         {
@@ -88,12 +77,28 @@ public class Hacker : MonoBehaviour
         }
     }
 
-    void StartGame()
+    void StartGame(int level)
     {
         Terminal.ClearScreen();
-        Terminal.WriteLine("You have chosen " + level);
         Terminal.WriteLine("Please enter your password: ");
         currentScene = Screen.Password;
+        switch(level){
+            case 1:
+               
+                password = level1Passwords[UnityEngine.Random.Range(0, 6)];
+                break;
+            case 2:
+                
+                password = level2Passwords[UnityEngine.Random.Range(0, 5)];
+                break;
+            case 3:
+                password = level3Passwords[UnityEngine.Random.Range(0, 5)];
+                break;
+            default:
+                Debug.Log("Error something is wrong");
+                break;
+
+        }
     }
     void RunPassword(string input)
     {
