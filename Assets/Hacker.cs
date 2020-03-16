@@ -65,7 +65,7 @@ public class Hacker : MonoBehaviour
         else if (isValidInput)
         {
             level = int.Parse(input);
-            StartGame();
+            AskForPassword();
         }
         else if(input == "007")
         {
@@ -77,18 +77,24 @@ public class Hacker : MonoBehaviour
         }
     }
 
-    void StartGame()
+    void AskForPassword()
     {
         Terminal.ClearScreen();
-        Terminal.WriteLine("Please enter your password: ");
         currentScene = Screen.Password;
-        switch(level){
+        SetRandomPassword();
+        Terminal.WriteLine("Enter your password, hint: " + password.Anagram());
+    }
+
+  void SetRandomPassword()
+    {
+        switch (level)
+        {
             case 1:
-               
+
                 password = level1Passwords[UnityEngine.Random.Range(0, level1Passwords.Length)];
                 break;
             case 2:
-                
+
                 password = level2Passwords[UnityEngine.Random.Range(0, level2Passwords.Length)];
                 break;
             case 3:
@@ -98,17 +104,20 @@ public class Hacker : MonoBehaviour
                 Debug.Log("Invalid level number");
                 break;
 
+
         }
     }
+
     void RunPassword(string input)
     {
         if (input == password)
         {
             DisplayWinScene();
+            
         }
         else
         {
-            Terminal.WriteLine("Sorry, wrong password!");
+            AskForPassword();
             
         }
     }
