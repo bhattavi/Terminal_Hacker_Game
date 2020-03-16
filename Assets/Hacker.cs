@@ -95,7 +95,7 @@ public class Hacker : MonoBehaviour
                 password = level3Passwords[UnityEngine.Random.Range(0, 5)];
                 break;
             default:
-                Debug.Log("Error something is wrong");
+                Debug.Log("Invalid level number");
                 break;
 
         }
