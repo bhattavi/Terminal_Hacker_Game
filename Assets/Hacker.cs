@@ -6,7 +6,7 @@ using UnityEngine;
 public class Hacker : MonoBehaviour
    
 {
-    string[] level1Passwords = { "books", "aisle", "self", "password", "font", "borrow" };
+    string[] level1Passwords = { "books", "aisle", "shelf", "password", "font", "borrow" };
     string[] level2Passwords = { "prisoner", "handcuffs", "holster", "uniform", "arrest" };
     string[] level3Passwords = { "aviation", "gravity", "supersonic", "thrust", "combustor" };
     int level;
@@ -65,7 +65,7 @@ public class Hacker : MonoBehaviour
         else if (isValidInput)
         {
             level = int.Parse(input);
-            StartGame(level);
+            StartGame();
         }
         else if(input == "007")
         {
@@ -77,7 +77,7 @@ public class Hacker : MonoBehaviour
         }
     }
 
-    void StartGame(int level)
+    void StartGame()
     {
         Terminal.ClearScreen();
         Terminal.WriteLine("Please enter your password: ");
@@ -85,14 +85,14 @@ public class Hacker : MonoBehaviour
         switch(level){
             case 1:
                
-                password = level1Passwords[UnityEngine.Random.Range(0, 6)];
+                password = level1Passwords[UnityEngine.Random.Range(0, level1Passwords.Length)];
                 break;
             case 2:
                 
-                password = level2Passwords[UnityEngine.Random.Range(0, 5)];
+                password = level2Passwords[UnityEngine.Random.Range(0, level2Passwords.Length)];
                 break;
             case 3:
-                password = level3Passwords[UnityEngine.Random.Range(0, 5)];
+                password = level3Passwords[UnityEngine.Random.Range(0, level2Passwords.Length)];
                 break;
             default:
                 Debug.Log("Invalid level number");
@@ -104,7 +104,7 @@ public class Hacker : MonoBehaviour
     {
         if (input == password)
         {
-            Terminal.WriteLine("Well done");
+            DisplayWinScene();
         }
         else
         {
@@ -113,7 +113,52 @@ public class Hacker : MonoBehaviour
         }
     }
 
+    void DisplayWinScene()
+    {
+        currentScene = Screen.Win;
+        Terminal.ClearScreen();
+        ShowLevelReward();
+    }
+    void ShowLevelReward()
+    {
+        switch (level)
+        {
+            case 1:
+                Terminal.WriteLine("Have a book.......");
+                Terminal.WriteLine(@"
+    _______
+   /      //
+  /      //
+ /_____ //
+(______(/           
+"
+               );
+                break;
+            case 2:
+                Terminal.WriteLine("You got the prison key!");
+                Terminal.WriteLine(@"
+ __
+/0 \_______
+\__/-=' = '         
+"
+                );
+                break;
+            case 3:
+                Terminal.WriteLine("You are going to mars!");
+                Terminal.WriteLine(@"
+  ##
+ #####
+######
+ #####
+  ##
 
+"
+                );
+                break;
+            default:
+                Debug.LogError("Invalid level reached");
+                break;
 
-
+        }
+    }
 }
